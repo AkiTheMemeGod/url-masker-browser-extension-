@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Masker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="popup-container">
+    <h1 class="title">URL Masker</h1>
+    <p class="description">Shorten and Mask your URL!</p>
+
+    <div class="input-section">
+      <input type="text" id="url" class="url-input" placeholder="Enter URL to shorten">
+      <button id="shorten" class="shorten-btn">Shorten URL</button>
+    </div>
+
+    <div class="result-section">
+      <a href="#" id="shortenedUrl" class="shortened-url" target="_blank"></a>
+      <img id="qrCode" class="qr-code" src="" alt="QR Code" style="display: none">
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

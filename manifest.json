@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "URL Masker",
+  "description": "Mask URLs",
+  "version": "1.0",
+  "permissions": ["activeTab", "storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "https://maskurl.pythonanywhere.com/*"
+  ]
+}
