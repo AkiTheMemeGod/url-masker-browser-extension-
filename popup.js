@@ -18,9 +18,9 @@ document.getElementById('shorten').addEventListener('click', function() {
     if (data.success) {
       const shortenedUrl = data.short_url;
       document.getElementById('shortenedUrl').textContent = shortenedUrl;
-      document.getElementById('shortenedUrl').href = shortenedUrl;  // Make it clickable
+      document.getElementById('shortenedUrl').href = shortenedUrl;  
       document.getElementById('qrCode').src = `data:image/png;base64,${data.qr_code}`;
-      document.getElementById('qrCode').style.display = 'block'; // Show the QR code
+      document.getElementById('qrCode').style.display = 'block'; 
     } else {
       alert(data.message);
     }
@@ -30,13 +30,12 @@ document.getElementById('shorten').addEventListener('click', function() {
   });
 });
 
-// Listen for the background script to send a message
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.type === 'URL_SHORTENED') {
     const shortenedUrl = request.shortUrl;
     document.getElementById('shortenedUrl').textContent = shortenedUrl;
-    document.getElementById('shortenedUrl').href = shortenedUrl;  // Make it clickable
+    document.getElementById('shortenedUrl').href = shortenedUrl;  
     document.getElementById('qrCode').src = `data:image/png;base64,${request.qrCode}`;
-    document.getElementById('qrCode').style.display = 'block'; // Show the QR code
+    document.getElementById('qrCode').style.display = 'block'; 
   }
 });
