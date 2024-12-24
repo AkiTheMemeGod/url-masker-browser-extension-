@@ -3,30 +3,33 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.action.onClicked.addListener(function(tab) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
-    const currentUrl = tabs[0].url;
+  if (!tab || !tab.url) {
+    console.error("No active tab URL found");
+    return;
+  }
 
-    fetch('https://maskurl.pythonanywhere.com/add_url', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url: currentUrl })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        chrome.runtime.sendMessage({
-          type: 'URL_MASKED',
-          shortUrl: data.short_url,
-          qrCode: data.qr_code
-        });
-      } else {
-        console.error("Error Masking URL:", data.message);
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+  const currentUrl = tab.url; 
+  fetch('https://maskurl.pythonanywhere.com/add_url', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ url: currentUrl })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+
+      chrome.runtime.sendMessage({
+        type: 'URL_MASKED',
+        shortUrl: data.short_url,
+        qrCode: data.qr_code
+      });
+    } else {
+      console.error("Error Masking URL:", data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
   });
 });
